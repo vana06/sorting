@@ -4,19 +4,19 @@ package ru.mail.polis.structures;
  * Created by Nechaev Mikhail
  * Since 12/11/2017.
  */
-public class SimpleInteger implements Numerical, Comparable<SimpleInteger> {
+public class SimpleInteger implements Numerical<SimpleInteger> {
 
     private static final int DIGIT_COUNT = 10;
 
-//    private final todo data;
-//    private final int length;
+    private final char[] data;
+    private final int length;
 
     public SimpleInteger(Integer data) throws IllegalArgumentException {
         if (data == null) {
             throw new IllegalArgumentException("Source must be not null");
         }
-//        this.data = todo
-//        this.length = todo
+        this.data = String.valueOf(data).toCharArray();
+        this.length = this.data.length;
     }
 
     @Override
@@ -26,8 +26,7 @@ public class SimpleInteger implements Numerical, Comparable<SimpleInteger> {
         } else if (index >= getDigitCount()) {
             return 0;
         } else {
-            //todo
-            return 0;
+            return data[length - 1 - index];
         }
     }
 

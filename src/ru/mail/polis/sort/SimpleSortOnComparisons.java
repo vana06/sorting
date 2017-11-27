@@ -10,6 +10,7 @@ public class SimpleSortOnComparisons<T> extends AbstractSortOnComparisons<T> {
         super();
     }
 
+    @Override
     public void sort(T[] array) {
         int n = array.length;
         for (int i = 1; i < n; i++) {

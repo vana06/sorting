@@ -1,21 +1,27 @@
 package ru.mail.polis.sort;
 
+import ru.mail.polis.structures.Numerical;
+
 import java.util.Random;
 
-public class QuickSort1<Item extends Comparable> extends AbstractSortOnComparisons<Item> {
+public class QuickSort1<Item> extends AbstractSortOnComparisons<Item> {
 
     private Random r = new Random();
 
-    public Item[] sort(Item[] array, int left, int right){
-        if(right - left <= 15){
+    @Override
+    public void sort(Item[] array) {
+        quickSort(array, 0, array.length-1);
+    }
+
+    private void quickSort(Item[] array, int left, int right){
+        if(right - left < 15){
             insertionSort(array, left, right);
-            return null;
+            return;
         }
-        if (left >= right) return null;
+        if (left >= right) return;
         int idx = partition(array, left, right);
-        sort(array, left, idx);
-        sort(array, idx + 1, right);
-        return array;
+        quickSort(array, left, idx);
+        quickSort(array, idx + 1, right);
     }
 
     private int partition(Item[] array, int left, int right) {
@@ -33,11 +39,11 @@ public class QuickSort1<Item extends Comparable> extends AbstractSortOnCompariso
 
     private void insertionSort(Item[] array, int left, int right){
         for (int i = left; i <= right; i++) {
-            for (int j = i; j > 0; j--) {
-                if(lesser(array[j],array[j-1])){
-                    swap(array, j, j-1);
-                }
+            for (int j = i; j > 0 && lesser(array[j],array[j-1]); j--) {
+                swap(array, j, j-1);
             }
         }
     }
+
+
 }

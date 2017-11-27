@@ -20,54 +20,79 @@ import java.util.concurrent.TimeUnit;
 @Fork(1)
 public class QuickSort1Bench {
 
-    Object[][] data;
+    Object[][] data1, data2, data3, data4, data5, data6, data7 ;
     Object[] curr;
     int index;
-    int testNumber = 10;
+    int testNumber = 15;
 
     @Setup(value = Level.Trial)
     public void setUpTrial() {
         int n = 10000;
 
         //1. числа с ключами в узком диапазоне
-        data = new IntKeyStringValueObject[testNumber][];
-        data[0] = SortUtils.generateKeysValues(n);
+        data1 = new IntKeyStringValueObject[testNumber][];
         //2. длинные строки одинаковой длины
-        //data = new String[testNumber][];
-        //data[0] = SortUtils.generateStringArray(n, 10);
+        data2 = new String[testNumber][];
         //3. куча в обратном порядке
-        //data = new Integer[testNumber][];
-        //data[0] = SortUtils.generateInverseHeap(n);
+        data3 = new Integer[testNumber][];
         //4. отсортированный массив
-        //data = new Integer[testNumber][];
-        //data[0] = SortUtils.generateSortedArray(n);
+        data4 = new Integer[testNumber][];
         //5. отсортированный массив в обратном порядке
-        //data = new Integer[testNumber][];
-        //data[0] = SortUtils.generateInverseSortedArray(n);
+        data5 = new Integer[testNumber][];
         //6. рандомно заполненный масссив чисел
-        /*data = new Integer[testNumber][];
-        for(int i = 0; i < testNumber; i++) {
-            data[i] = Arrays.stream(SortUtils.generateArray(n)).boxed().toArray(Integer[]::new);
-        }*/
+        data6 = new Integer[testNumber][];
         //7. рандомно заполненный массив строк
-        /*data = new String[testNumber][];
+        data7 = new String[testNumber][];
         for(int i = 0; i < testNumber; i++) {
-            data[i] = SortUtils.generateStringArray(n, 100);
-        }*/
-
+            data1[i] = SortUtils.generateKeysValues(n);
+            data2[i] = SortUtils.generateStringArray(n, 10);
+            data3[i] = SortUtils.generateInverseHeap(n);
+            data4[i] = SortUtils.generateSortedArray(n);
+            data5[i] = SortUtils.generateInverseSortedArray(n);
+            data6[i] = Arrays.stream(SortUtils.generateArray(n)).boxed().toArray(Integer[]::new);
+            data7[i] = SortUtils.generateStringArray(n, -1);
+        }
     }
 
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        curr = Arrays.copyOf(data[index], data[index].length);
         index = (index + 1) % testNumber;
     }
 
     @Benchmark
-    public void measureQuickSort1Sort() {
-        new QuickSort1<>().sort((IntKeyStringValueObject[])curr, 0, data.length - 1);
-        //new QuickSort1<>().sort((String[])curr, 0, data.length - 1);
-        //new QuickSort1<>().sort((Integer[])curr, 0, curr.length - 1);
+    public void measureQuickSort1KeysValues() {
+        curr = Arrays.copyOf(data1[index], data1[index].length);
+        new QuickSort1<>().sort(curr);
+    }
+    @Benchmark
+    public void measureQuickSort1String() {
+        curr = Arrays.copyOf(data2[index], data2[index].length);
+        new QuickSort1<>().sort(curr);
+    }
+    @Benchmark
+    public void measureQuickSort1InverseHeap() {
+        curr = Arrays.copyOf(data3[index], data3[index].length);
+        new QuickSort1<>().sort(curr);
+    }
+    @Benchmark
+    public void measureQuickSort1SortedArray() {
+        curr = Arrays.copyOf(data4[index], data4[index].length);
+        new QuickSort1<>().sort(curr);
+    }
+    @Benchmark
+    public void measureQuickSort1InverseSortedArray() {
+        curr = Arrays.copyOf(data5[index], data5[index].length);
+        new QuickSort1<>().sort(curr);
+    }
+    @Benchmark
+    public void measureQuickSort1RandomInt() {
+        curr = Arrays.copyOf(data6[index], data6[index].length);
+        new QuickSort1<>().sort(curr);
+    }
+    @Benchmark
+    public void measureQuickSort1RandomString() {
+        curr = Arrays.copyOf(data7[index], data7[index].length);
+        new QuickSort1<>().sort(curr);
     }
 
     public static void main(String[] args) throws RunnerException {

@@ -1,6 +1,8 @@
 package ru.mail.polis.sort;
 
 import ru.mail.polis.structures.IntKeyStringValueObject;
+import ru.mail.polis.structures.SimpleInteger;
+import ru.mail.polis.structures.SimpleString;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -33,12 +35,26 @@ public class SortUtils {
         for (int i = 0; i < a.length; i++) {
             a[i] = "";
         }
-        for(int j = 0; j < length; j++) {
+        if(length != -1) {
+            for (int j = 0; j < length; j++) {
+                for (int i = 0; i < a.length; i++) {
+                    char temp = (char) ('a' + r.nextInt('z' - 'a' + 1));
+                    a[i] = a[i].concat(String.valueOf(temp));
+                }
+            }
+        } else{
             for (int i = 0; i < a.length; i++) {
-                char temp = (char) ('a' + r.nextInt('z'-'a' + 1));
-                a[i] = a[i].concat(String.valueOf(temp));
+                char[] str = new char[1 + r.nextInt(99)];
+                for (int j = 0; j < str.length; j++) {
+                    str[j] = (char) ('a' + r.nextInt('z' - 'a' + 1));
+                }
+                a[i] = new String(str);
             }
         }
+        /*SimpleString[] result = new SimpleString[n];
+        for(int i = 0; i < n; i++) {
+            result[i] = new SimpleString(a[i]);
+        }*/
         return a;
     }
     public static IntKeyStringValueObject[] generateKeysValues(int n){
@@ -71,6 +87,18 @@ public class SortUtils {
         Integer[] array = new Integer[n];
         for (int i = 0; i < array.length; i++) {
             array[i] = array.length - 1 - i;
+        }
+        return array;
+    }
+    public static SimpleInteger[] generateSameLengthInt(int n, int length){
+        SimpleInteger[] array = new SimpleInteger[n];
+        for (int i = 0; i < array.length; i++) {
+            int data = 0;
+            for (int j = 0; j < length; j++) {
+                int digit = r.nextInt(9);
+                data += digit<<j;
+            }
+            array[i] = new SimpleInteger(data);
         }
         return array;
     }

@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  * Created by Nechaev Mikhail
  * Since 12/11/2017.
  */
-public class SimpleString implements Numerical, Comparable<SimpleString> {
+public class SimpleString implements Numerical<SimpleString> {
 
     private static final Pattern SIMPLE_STRING = Pattern.compile("^[a-z]+$");
     private static final int DIGIT_COUNT = 'z' - 'a' + 1;
@@ -53,4 +53,8 @@ public class SimpleString implements Numerical, Comparable<SimpleString> {
         return data.compareTo(anotherSimpleString.data);
     }
 
+    @Override
+    public String toString() {
+        return data;
+    }
 }

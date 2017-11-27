@@ -5,7 +5,8 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-import ru.mail.polis.sort.QuickSort2;
+import ru.mail.polis.sort.HeapSort;
+import ru.mail.polis.sort.QuickSort1;
 import ru.mail.polis.sort.SortUtils;
 import ru.mail.polis.structures.IntKeyStringValueObject;
 
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 10, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
-public class QuickSort2Bench {
+public class HeapSortBench {
 
     Object[][] data1, data2, data3, data4, data5, data6, data7 ;
     Object[] curr;
@@ -60,44 +61,44 @@ public class QuickSort2Bench {
     }
 
     @Benchmark
-    public void measureQuickSort2KeysValues() {
+    public void measureHeapSortKeysValues() {
         curr = Arrays.copyOf(data1[index], data1[index].length);
-        new QuickSort2<>().sort(curr);
+        new HeapSort<>().sort(curr);
     }
     @Benchmark
-    public void measureQuickSort2String() {
+    public void measureHeapSortString() {
         curr = Arrays.copyOf(data2[index], data2[index].length);
-        new QuickSort2<>().sort(curr);
+        new HeapSort<>().sort(curr);
     }
     @Benchmark
-    public void measureQuickSort2InverseHeap() {
+    public void measureHeapSortInverseHeap() {
         curr = Arrays.copyOf(data3[index], data3[index].length);
-        new QuickSort2<>().sort(curr);
+        new HeapSort<>().sort(curr);
     }
     @Benchmark
-    public void measureQuickSort2SortedArray() {
+    public void measureHeapSortSortedArray() {
         curr = Arrays.copyOf(data4[index], data4[index].length);
-        new QuickSort2<>().sort(curr);
+        new HeapSort<>().sort(curr);
     }
     @Benchmark
-    public void measureQuickSort2InverseSortedArray() {
+    public void measureHeapSortInverseSortedArray() {
         curr = Arrays.copyOf(data5[index], data5[index].length);
-        new QuickSort2<>().sort(curr);
+        new HeapSort<>().sort(curr);
     }
     @Benchmark
-    public void measureQuickSort2RandomInt() {
+    public void measureHeapSortRandomInt() {
         curr = Arrays.copyOf(data6[index], data6[index].length);
-        new QuickSort2<>().sort(curr);
+        new HeapSort<>().sort(curr);
     }
     @Benchmark
-    public void measureQuickSort2RandomString() {
+    public void measureHeapSortRandomString() {
         curr = Arrays.copyOf(data7[index], data7[index].length);
-        new QuickSort2<>().sort(curr);
+        new HeapSort<>().sort(curr);
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(QuickSort2.class.getSimpleName())
+                .include(HeapSort.class.getSimpleName())
                 .build();
 
         new Runner(opt).run();

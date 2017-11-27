@@ -69,7 +69,7 @@ public class TestSimpleSort {
     @Test
     public void test01() throws IOException {
         System.out.println("Before = " + Arrays.toString(array));
-        simpleSort.sort(array, 0, array.length-1);
+        simpleSort.sort(array);
         System.out.println("After = " + Arrays.toString(array));
         Assert.assertTrue(SortUtils.isArraySorted(array, comparator));
     }

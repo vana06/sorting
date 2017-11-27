@@ -4,7 +4,7 @@ package ru.mail.polis.structures;
  * Created by Nechaev Mikhail
  * Since 12/11/2017.
  */
-public interface Numerical {
+public interface Numerical<T> extends Comparable<T> {
 
     /**
      * @param index - порядковый номер разряда
