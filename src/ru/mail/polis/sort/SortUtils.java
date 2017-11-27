@@ -1,5 +1,8 @@
 package ru.mail.polis.sort;
 
+import ru.mail.polis.structures.IntKeyStringValueObject;
+
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,6 +28,52 @@ public class SortUtils {
         }
         return a;
     }
+    public static String[] generateStringArray(int n, int length) {
+        String[] a = new String[n];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = "";
+        }
+        for(int j = 0; j < length; j++) {
+            for (int i = 0; i < a.length; i++) {
+                char temp = (char) ('a' + r.nextInt('z'-'a' + 1));
+                a[i] = a[i].concat(String.valueOf(temp));
+            }
+        }
+        return a;
+    }
+    public static IntKeyStringValueObject[] generateKeysValues(int n){
+        IntKeyStringValueObject[] a = new IntKeyStringValueObject[n];
+        int max = 100;
+        String temp = "abcdefg";
+        for(int i = 0; i < n; i++){
+            a[i] = new IntKeyStringValueObject(r.nextInt(max), temp);
+        }
+        return a;
+    }
+    public static Integer[] generateInverseHeap(int n){
+        Integer[] array = Arrays.stream(generateArray(n)).boxed().toArray(Integer[]::new);
+        build(array);
+        for (int i = 0; i < array.length/2; i++) {
+            Integer temp = array[i];
+            array[i] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = temp;
+        }
+        return array;
+    }
+    public static Integer[] generateSortedArray(int n){
+        Integer[] array = new Integer[n];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = i;
+        }
+        return array;
+    }
+    public static Integer[] generateInverseSortedArray(int n){
+        Integer[] array = new Integer[n];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = array.length - 1 - i;
+        }
+        return array;
+    }
 
     public static boolean isArraySorted(int[] a) {
         boolean isSorted = true;
@@ -48,5 +97,36 @@ public class SortUtils {
             isSorted = comparator.compare(array[i], array[i + 1]) <= 0;
         }
         return isSorted;
+    }
+
+    private static void siftDown(Integer[] array, int size, int index) {
+        if(2 * index + 1 > size)
+            return;
+
+        int left = 2 * index + 1;
+        int right = left + 1;
+
+        if(right < size && array[right] <= array[left]) {
+            left=right;
+        }
+
+        if(left < size && array[index] > array[left]){
+            Integer temp = array[index];
+            array[index] = array[left];
+            array[left] = temp;
+            siftDown(array, size, left);
+        }
+    }
+    private static void build(Integer[] array){
+        int last = array.length - 1;
+        if(last%2 == 0){
+            last = (last-2)/2;
+        } else{
+            last = (last-1)/2;
+        }
+
+        for(int i = last; i >= 0; i--){
+            siftDown(array, array.length, i);
+        }
     }
 }

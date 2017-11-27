@@ -44,4 +44,7 @@ public class AbstractSortOnComparisons<T> {
         return compare(firstKey, secondKey) < 0;
     }
 
+    protected boolean equal (T firstKey, T secondKey) {
+        return compare(firstKey, secondKey) == 0;
+    }
 }

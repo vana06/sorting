@@ -16,8 +16,11 @@ import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import ru.mail.polis.sort.QuickSort1;
+import ru.mail.polis.sort.QuickSort2;
 import ru.mail.polis.sort.SimpleSortOnComparisons;
 import ru.mail.polis.sort.SortUtils;
+import ru.mail.polis.structures.IntKeyStringValueObject;
 
 /**
  * Created by Nechaev Mikhail
@@ -26,7 +29,8 @@ import ru.mail.polis.sort.SortUtils;
 @RunWith(value = Parameterized.class)
 public class TestSimpleSort {
 
-    private static SimpleSortOnComparisons<Integer> simpleSort;
+    //private static SimpleSortOnComparisons<Integer> simpleSort;
+    private static QuickSort2<Integer> simpleSort;
     private static Integer[] array;
 
     @Rule
@@ -41,18 +45,20 @@ public class TestSimpleSort {
     @Parameterized.Parameters(name = "{index}")
     public static Collection<Comparator<Integer>> data() {
         return Arrays.asList(
-                Comparator.comparingInt(k -> k),
-                Comparator.reverseOrder(),
-                Comparator.naturalOrder(),
-                Comparator.comparingInt(k -> k % 2),
-                (k1, k2) -> 0
+                /*Comparator.comparingInt(k -> k),
+                Comparator.reverseOrder(),*/
+                Comparator.naturalOrder()
+               /* Comparator.comparingInt(k -> k % 2),
+                (k1, k2) -> 0*/
         );
     }
 
     @BeforeClass //Перед всеми запусками тестов - should be static
     public static void init() {
-        simpleSort = new SimpleSortOnComparisons<>();
-        array = new Integer[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        //simpleSort = new SimpleSortOnComparisons<>();
+        simpleSort = new QuickSort2<>();
+        //array = new Integer[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        array = Arrays.stream(SortUtils.generateArray(10000)).boxed().toArray(Integer[]::new);
     }
 
     @Before //Перед каждым запуском теста
@@ -63,7 +69,7 @@ public class TestSimpleSort {
     @Test
     public void test01() throws IOException {
         System.out.println("Before = " + Arrays.toString(array));
-        simpleSort.sort(array);
+        simpleSort.sort(array, 0, array.length-1);
         System.out.println("After = " + Arrays.toString(array));
         Assert.assertTrue(SortUtils.isArraySorted(array, comparator));
     }

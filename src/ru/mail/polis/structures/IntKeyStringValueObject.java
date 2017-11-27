@@ -1,5 +1,7 @@
 package ru.mail.polis.structures;
 
+import java.util.Comparator;
+
 /**
  * Created by Nechaev Mikhail
  * Since 13/11/2017.

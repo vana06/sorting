@@ -52,4 +52,5 @@ public class SimpleString implements Numerical, Comparable<SimpleString> {
     public int compareTo(SimpleString anotherSimpleString) {
         return data.compareTo(anotherSimpleString.data);
     }
+
 }
