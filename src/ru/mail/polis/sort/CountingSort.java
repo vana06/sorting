@@ -4,12 +4,6 @@ import ru.mail.polis.structures.IntKeyObject;
 
 public class CountingSort<Item extends IntKeyObject<String>> extends AbstractSortOnComparisons<Item>{
 
-    int type = 1; //1 - сортировка по ключам; 2 - сортировка по значениям
-
-    public CountingSort(int type){
-        this.type = type;
-    }
-
     @Override
     public void sort(Item[] array) {
         countingSort(array);
@@ -37,4 +31,5 @@ public class CountingSort<Item extends IntKeyObject<String>> extends AbstractSor
         }
             System.arraycopy(res, 0, array, 0, array.length);
     }
+
 }

@@ -23,7 +23,7 @@ public class QuickSort2Bench {
     Object[][] data1, data2, data3, data4, data5, data6, data7 ;
     Object[] curr;
     int index;
-    int testNumber = 10;
+    int testNumber = 15;
 
     @Setup(value = Level.Trial)
     public void setUpTrial() {
