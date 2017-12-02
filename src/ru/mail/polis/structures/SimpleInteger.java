@@ -26,7 +26,7 @@ public class SimpleInteger implements Numerical<SimpleInteger> {
         } else if (index >= getDigitCount()) {
             return 0;
         } else {
-            return data[length - 1 - index];
+            return Character.getNumericValue(data[index]);
         }
     }
 
@@ -37,12 +37,15 @@ public class SimpleInteger implements Numerical<SimpleInteger> {
 
     @Override
     public int getDigitCount() {
-        //todo
-        return 0;
+        return length;
     }
 
     @Override
     public int compareTo(SimpleInteger anotherSimpleInteger) {
         return 0;
+    }
+
+    public Integer toInt(){
+        return Integer.parseInt(new String(data));
     }
 }

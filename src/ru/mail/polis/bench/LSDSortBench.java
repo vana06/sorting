@@ -23,8 +23,8 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 10, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 public class LSDSortBench {
-    SimpleString[][] data2;
-    SimpleInteger[][] data1, data3, data4, data5, data6, data7;
+    SimpleString[][] data2, data7;
+    SimpleInteger[][] data1, data3, data4, data5, data6;
     SimpleString[] curr2;
     SimpleInteger[] curr1;
     int index;
@@ -69,7 +69,7 @@ public class LSDSortBench {
         //6. рандомно заполненный масссив чисел
         data6 = new SimpleInteger[testNumber][];
         //7. рандомно заполненный массив чисел одинаково длины
-        data7 = new SimpleInteger[testNumber][];
+        data7 = new SimpleString[testNumber][];
         for(int i = 0; i < testNumber; i++) {
             data1[i] = transform(SortUtils.generateKeysValues(n));
             data2[i] = transform(SortUtils.generateStringArray(n, 10));
@@ -77,7 +77,7 @@ public class LSDSortBench {
             data4[i] = transform(SortUtils.generateSortedArray(n));
             data5[i] = transform(SortUtils.generateInverseSortedArray(n));
             data6[i] = transform(Arrays.stream(SortUtils.generateArray(n)).boxed().toArray(Integer[]::new));
-            data7[i] = SortUtils.generateSameLengthInt(n, 60);
+            data7[i] = transform(SortUtils.generateStringArray(n, -1));
         }
     }
 
@@ -116,14 +116,13 @@ public class LSDSortBench {
         curr1 = Arrays.copyOf(data6[index], data6[index].length);
         new LSD<SimpleInteger>().sort(curr1);
     }
-    @Benchmark
-    public void measureLsdSortRandomIntSameLength() {
-        curr1 = Arrays.copyOf(data7[index], data7[index].length);
-        new LSD<SimpleInteger>().sort(curr1);
-    }
+    /*@Benchmark
+    public void measureLsdSortRandomString() {
+        curr2 = Arrays.copyOf(data7[index], data7[index].length);
+        new LSD<SimpleString>().sort(curr2);
+    }*/
 
     public static void main(String[] args) throws RunnerException {
-        SortUtils.generateStringArray(100, 10);
         Options opt = new OptionsBuilder()
                 .include(LSDSortBench.class.getSimpleName())
                 .build();

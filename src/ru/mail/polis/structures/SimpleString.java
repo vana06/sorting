@@ -31,7 +31,7 @@ public class SimpleString implements Numerical<SimpleString> {
         if (index < 0) {
             throw new IndexOutOfBoundsException("Negative index " + index);
         } else if (index >= getDigitCount()) {
-            return MIN_DIGIT_VALUE;
+            return 'a' - MIN_DIGIT_VALUE;
         } else {
             return data.charAt(index) - MIN_DIGIT_VALUE;
         }

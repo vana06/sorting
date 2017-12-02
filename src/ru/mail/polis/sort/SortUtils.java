@@ -44,7 +44,7 @@ public class SortUtils {
             }
         } else{
             for (int i = 0; i < a.length; i++) {
-                char[] str = new char[1 + r.nextInt(99)];
+                char[] str = new char[2 + r.nextInt(5)];
                 for (int j = 0; j < str.length; j++) {
                     str[j] = (char) ('a' + r.nextInt('z' - 'a' + 1));
                 }
@@ -87,18 +87,6 @@ public class SortUtils {
         Integer[] array = new Integer[n];
         for (int i = 0; i < array.length; i++) {
             array[i] = array.length - 1 - i;
-        }
-        return array;
-    }
-    public static SimpleInteger[] generateSameLengthInt(int n, int length){
-        SimpleInteger[] array = new SimpleInteger[n];
-        for (int i = 0; i < array.length; i++) {
-            int data = 0;
-            for (int j = 0; j < length; j++) {
-                int digit = r.nextInt(9);
-                data += digit<<j;
-            }
-            array[i] = new SimpleInteger(data);
         }
         return array;
     }
